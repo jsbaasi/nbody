@@ -13,28 +13,35 @@
 struct Vec3;
 struct Body;
 struct State;
-struct Delta;
 struct Simulation;
 
 using namespace std;
 using Bodies = vector<Body>;
+using Delta = vector<Vec3>;
 
 struct Vec3 {
 	double x{}, y{}, z{};
+	Vec3& operator+=(Vec3 other) {
+		x += other.x;
+		y += other.y;
+		z += other.z;
+		return *this;
+	}
+	Vec3 operator-(Vec3 other) {
+		return {this->x-other.x, this->y-other.y, this->z-other.z};
+	}
+	double distance_to(Vec3 a);
 };
 
 struct Body {
 	Vec3 pos{};
+	Vec3 vel{};
 	double mass{};
 };
 
 struct State {
 	double time{};
 	Bodies bodies{};
-};
-
-struct Delta {
-	vector<Vec3> deltas{};
 };
 
 struct Simulation {
