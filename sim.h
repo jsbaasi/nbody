@@ -19,6 +19,7 @@ using namespace std;
 using Bodies = vector<Body>;
 using Delta = vector<Vec3>;
 
+
 struct Vec3 {
 	double x{}, y{}, z{};
 	Vec3& operator+=(Vec3 other) {
@@ -30,10 +31,31 @@ struct Vec3 {
 	Vec3 operator-(Vec3 other) {
 		return {this->x-other.x, this->y-other.y, this->z-other.z};
 	}
+
+	Vec3 operator+(Vec3 other) {
+		return {this->x+other.x, this->y+other.y, this->z+other.z};
+	}
+
+	Vec3 operator*(double scalar) {
+		return {this->x*scalar, this->y*scalar, this->z*scalar};
+	}
+
+
 	double distance_to(Vec3 a);
+	void unit_vector();
+	double magnitude();
 };
 
+ostream& operator<<(ostream& os, Vec3& v) {
+	os << '(' << v.x << ", " << v.y << ", " << v.z << ')';
+	return os;
+}
+
 struct Body {
+	Body(double x, double y, double z, double _mass) :
+		pos{x,y,z},
+		mass{_mass}
+	{};
 	Vec3 pos{};
 	Vec3 vel{};
 	double mass{};
@@ -42,6 +64,7 @@ struct Body {
 struct State {
 	double time{};
 	Bodies bodies{};
+	void add_body(double x, double y, double z, double mass);
 };
 
 struct Simulation {
