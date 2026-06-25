@@ -9,6 +9,7 @@
  */
 
 #include <vector>
+#include <iostream>
 
 struct Vec3;
 struct Body;
@@ -17,7 +18,7 @@ struct Simulation;
 
 using namespace std;
 using Bodies = vector<Body>;
-using Delta = vector<Vec3>;
+using Positions = vector<Vec3>;
 
 
 struct Vec3 {
@@ -46,8 +47,8 @@ struct Vec3 {
 	double magnitude();
 };
 
-ostream& operator<<(ostream& os, Vec3& v) {
-	os << '(' << v.x << ", " << v.y << ", " << v.z << ')';
+inline ostream& operator<<(ostream& os, Vec3& v) {
+	os << "(" << v.x << ", " << v.y << ", " << v.z << ")";
 	return os;
 }
 
@@ -70,7 +71,7 @@ struct State {
 struct Simulation {
 	State _state{};
 	Simulation(State initial) : _state{initial} {}
-	Delta step(double t);
+	Positions step(double t=1.0);
 };
 
 #endif
