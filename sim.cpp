@@ -35,11 +35,11 @@ void State::add_body(double x, double y, double z, double mass) {
 }
 
 
-Delta Simulation::step(double t) {
+Positions Simulation::step(double t) {
 	auto& bodies = _state.bodies;
 	int n = bodies.size();
-	Delta accels(n);
-	Delta displacement(n);
+	Positions accels(n);
+	Positions displacement(n);
 
 	// calculate the displacement
 	for (int i{}; i<n-1; i++) {
@@ -66,6 +66,7 @@ Delta Simulation::step(double t) {
 	// update the time
 	_state.time += t;
 
-	//return the delta
+	//return the positions (not delta because that's just complexity
+	//for no reason
 	return displacement;
 }

@@ -1,6 +1,7 @@
 #include "sim.h"
-#include <iostream>
 #include "constants.h"
+#include "cli.h"
+#include <iostream>
 #include <chrono>
 #include <thread>
 
@@ -16,13 +17,11 @@ int main() {
 		state.add_body(x,y,z,mass);
 	}
 	Simulation sim{state};
+	Cli cli{state};
 	int i{};
 	while (true) {
-		auto delta = sim.step();
-		cout << "[" << i << "] " << " [ ";
-		for (auto& d : delta) cout << d << " ";
-		cout << "]" << endl;
-		i++;
+		auto positions = sim.step();
+		cli.render(positions);
 		this_thread::sleep_for(chrono::seconds(1));
 	}
 	return 0;

@@ -1,5 +1,5 @@
 alias t := test
-source := "main.cpp sim.cpp"
+source := "main.cpp sim.cpp cli.cpp"
 
 build:
 	mkdir -p build
